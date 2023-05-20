@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Sheet API</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="index.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Google Sheet API</h2>
+    <div class="form-group">
+      <label for="writeInput">Digite algo:</label>
+      <input type="text" id="writeInput">
+      <button onclick="WriteOnSheet()">Escrever</button>
+    </div>
+    <div class="form-group">
+      <label for="readInput">Número da linha:</label>
+      <input type="text" id="readInput">
+      <button onclick="ReadSheetRow()">Ler</button>
+    </div>
+  </div>
+</body>
+</html>
