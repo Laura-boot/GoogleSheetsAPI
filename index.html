@@ -19,7 +19,12 @@
       return response.json();
     })
     .then((data) => {
+      var row = parseInt(readInput, 10);
       console.log(data);
+      console.log("Teste: ", data["values"][row][0]);
+    })
+    .catch((error) => {
+      return alert("Erro  na requisição");
     });
   }
 
