@@ -3,11 +3,32 @@
 <head>
   <title>Google Sheet API</title>
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="index.js"></script>
+  <script>
+    function WriteOnSheet() {
+    // Implemente sua lógica aqui para escrever na planilha
+    var writeInput = document.getElementById('writeInput').value;
+    console.log('Texto digitado:', writeInput);
+  }
+
+  function ReadSheetRow() {
+    // Implemente sua lógica aqui para ler da planilha
+    var readInput = document.getElementById('readInput').value;
+    console.log('Número da linha:', readInput);
+    fetch("/getRows")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    });
+  }
+
+  </script>
+
 </head>
 <body>
   <div class="container">
-    <h2>Google Sheet API</h2>
+    <h2>Google Sheets API</h2>
     <div class="form-group">
       <label for="writeInput">Digite algo:</label>
       <input type="text" id="writeInput">

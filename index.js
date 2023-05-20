@@ -1,4 +1,16 @@
-const google = require('googleapis')
+const express = require("express");
+
+const { google } = require("googleapis");
+const path = require('path');
+
+const app = express();
+const port = 8080;
+
+//This allows us to parse the incoming request body as JSON
+app.use(express.json());
+
+// With this, we'll listen for the server on port 8080
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 async function authSheets() {
     //Function for authentication object
@@ -22,15 +34,7 @@ async function authSheets() {
 
   const id = "1uTZSyqRis2ttATQg8s-l1_K-PqqHwoT07KVrJosdcno";
 
-  function WriteOnSheet() {
-    // Implemente sua lógica aqui para escrever na planilha
-    var writeInput = document.getElementById('writeInput').value;
-    console.log('Texto digitado:', writeInput);
-  }
-
-async function ReadSheetRow() {
-    // Implemente sua lógica aqui para ler da planilha
-    var readInput = document.getElementById('readInput').value;
+  async function getRows() {
     const { sheets } = await authSheets();
   
     // Read rows from spreadsheet
@@ -39,5 +43,19 @@ async function ReadSheetRow() {
       range: "Sheet1",
     });
 
-    console.log(getRows.data);
-}
+    return getRows.data;
+  }
+
+  app.get("/", async (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+  });
+
+
+  app.get("/getRows", async (req,res) => {
+    res.send(await getRows());
+  })
+
+  app.get("/styles.css", async( req, res ) => {
+
+    res.sendFile(path.join(__dirname, "styles.css"));
+  });
