@@ -34,6 +34,22 @@ async function authSheets() {
 
   const id = "1uTZSyqRis2ttATQg8s-l1_K-PqqHwoT07KVrJosdcno";
 
+  async function writeRow(string_to_write){
+      const { sheets } = await authSheets();
+      // Write rows to spreadsheet
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: id,
+        range: "Sheet1",
+        valueInputOption: "USER_ENTERED",
+        resource: {
+        values: [[string_to_write]],
+        },
+});
+
+  return "Success";
+
+  }
+
   async function getRows() {
     const { sheets } = await authSheets();
   
@@ -53,7 +69,14 @@ async function authSheets() {
 
   app.get("/getRows", async (req,res) => {
     res.send(await getRows());
-  })
+  });
+
+  app.post("/writeRow", async (req,res) => {
+    //res.send(await writeRow());
+    let data = req.body;
+    console.log(data["writeInput"]);
+    await writeRow(data["writeInput"]);
+  });
 
   app.get("/styles.css", async( req, res ) => {
 
